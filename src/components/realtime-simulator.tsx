@@ -50,12 +50,9 @@ function bigintReviver(key: string, value: any): any {
         return BigInt(value.slice(0, -1));
     }
     if (key === 'p' || key === 'g' || key === 'privateKey' || key === 'publicKey' || key === 'sharedKey') {
-       if (value && typeof value === 'string' && !isNaN(Number(value))) {
+       if (value && typeof value === 'string' && /^\d+$/.test(value)) {
             try {
-                // Ensure it's not a user ID string or something else
-                if (value.match(/^\d+$/)) {
-                    return BigInt(value);
-                }
+                return BigInt(value);
             } catch (e) {
                 // Not a bigint, return original value
                 return value;
@@ -175,7 +172,7 @@ export default function RealtimeSimulator({ roomId, role, userId, onLeave }: Rea
     );
   }
   
-  const canGenerate = state.step >= 1 && state[currentUserRole]?.privateKey === null;
+  const canGenerate = state.step >= 1 && state[currentUserRole]?.privateKey === null && state.joinerId !== null;
   const canCreatorSetParams = isCreator && state.step === 0;
   const canExchange = !!state.alice.privateKey && !!state.bob.privateKey && state.step < 3;
   const isFinished = state.step >= 4;
@@ -237,7 +234,7 @@ export default function RealtimeSimulator({ roomId, role, userId, onLeave }: Rea
             params={state.params}
             userState={state.alice}
             onGenerate={handleGenerateKey}
-            canGenerate={isCreator && canGenerate && otherParticipantJoined}
+            canGenerate={isCreator && canGenerate}
             receivedPublicKey={state.bob.publicKey}
             step={state.step}
         />
@@ -246,7 +243,7 @@ export default function RealtimeSimulator({ roomId, role, userId, onLeave }: Rea
             params={state.params}
             userState={state.bob}
             onGenerate={handleGenerateKey}
-            canGenerate={!isCreator && canGenerate && otherParticipantJoined}
+            canGenerate={!isCreator && canGenerate}
             receivedPublicKey={state.alice.publicKey}
             step={state.step}
         />

@@ -80,14 +80,12 @@ export default function ExchangeRoom() {
           return;
         }
 
-        // Allow any user to become the joiner (Bob). 
+        // Allow any user to become the joiner (Bob) if they are not the creator.
         // This overwrites the previous joiner, which is fine for this simulation.
-        if (roomData.joinerId !== userId) {
-            await setDoc(roomRef, { 
-                joinerId: userId,
-                'bob.id': userId
-            }, { merge: true });
-        }
+        await setDoc(roomRef, { 
+            joinerId: userId,
+            'bob.id': userId
+        }, { merge: true });
         
         setRole("joiner");
         setJoinedRoom(roomId);
