@@ -11,6 +11,11 @@ export * from './provider';
 
 function initializeFirebase(): { app: FirebaseApp; auth: Auth; firestore: Firestore } {
   const firebaseConfig = getFirebaseConfig();
+  if (!firebaseConfig.apiKey) {
+    // This can happen if the environment variables are not loaded yet.
+    // The provider will re-attempt initialization.
+    throw new Error("Firebase config not available");
+  }
   const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
   const auth = getAuth(app);
   const firestore = getFirestore(app);
