@@ -71,31 +71,22 @@ export default function ExchangeRoom() {
 
       if (roomSnap.exists()) {
         const roomData = roomSnap.data();
-        // Prevent original creator from re-joining as joiner
+        
+        // If the user is the creator, let them back in.
         if (roomData.creatorId === userId) {
-             toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Ya eres el creador de esta sala.",
-            });
-            setIsLoading(false);
-            return;
+          setRole("creator");
+          setJoinedRoom(roomId);
+          setIsLoading(false);
+          return;
         }
 
-        // Assign the joiner ID if the spot is open
-        if (!roomData.joinerId) {
+        // Allow any user to become the joiner (Bob). 
+        // This overwrites the previous joiner, which is fine for this simulation.
+        if (roomData.joinerId !== userId) {
             await setDoc(roomRef, { 
                 joinerId: userId,
                 'bob.id': userId
             }, { merge: true });
-        } else if (roomData.joinerId !== userId) {
-            toast({
-                variant: "destructive",
-                title: "Sala Llena",
-                description: "Esta sala de intercambio ya está ocupada.",
-            });
-            setIsLoading(false);
-            return;
         }
         
         setRole("joiner");
