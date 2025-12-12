@@ -1,7 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import KeyExchangeSimulator from "@/components/key-exchange-simulator";
 import AttackSimulation from "@/components/attack-simulation";
-import { Shield, Bot } from "lucide-react";
+import ExchangeRoom from "@/components/exchange-room";
+import { Shield, Bot, Radio } from "lucide-react";
 
 export default function Home() {
   return (
@@ -17,10 +18,14 @@ export default function Home() {
         </header>
         <main>
           <Tabs defaultValue="simulation" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 max-w-lg mx-auto bg-card border">
+            <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto bg-card border">
               <TabsTrigger value="simulation">
                 <Shield className="mr-2 h-4 w-4" />
-                Simulación DH
+                Simulador Local
+              </TabsTrigger>
+               <TabsTrigger value="room">
+                <Radio className="mr-2 h-4 w-4" />
+                Sala de Intercambio
               </TabsTrigger>
               <TabsTrigger value="attack">
                 <Bot className="mr-2 h-4 w-4" />
@@ -29,6 +34,9 @@ export default function Home() {
             </TabsList>
             <TabsContent value="simulation" className="mt-8">
               <KeyExchangeSimulator />
+            </TabsContent>
+            <TabsContent value="room" className="mt-8">
+              <ExchangeRoom />
             </TabsContent>
             <TabsContent value="attack" className="mt-8">
               <AttackSimulation />

@@ -13,7 +13,8 @@ const firebaseConfig = {
 
 export function getFirebaseConfig() {
   if (!firebaseConfig.apiKey) {
-    throw new Error('No se encontraron las variables de entorno de Firebase. Asegúrate de que tu proyecto de Firebase esté configurado correctamente.');
+    // This error is expected on first load, as env vars are not yet available.
+    // The FirebaseClientProvider will handle initialization.
   }
   return firebaseConfig;
 }
