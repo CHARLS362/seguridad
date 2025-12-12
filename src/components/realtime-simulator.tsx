@@ -52,8 +52,12 @@ function bigintReviver(key: string, value: any): any {
     if (key === 'p' || key === 'g' || key === 'privateKey' || key === 'publicKey' || key === 'sharedKey') {
        if (value && typeof value === 'string' && !isNaN(Number(value))) {
             try {
-                return BigInt(value);
+                // Ensure it's not a user ID string or something else
+                if (value.match(/^\d+$/)) {
+                    return BigInt(value);
+                }
             } catch (e) {
+                // Not a bigint, return original value
                 return value;
             }
        }
