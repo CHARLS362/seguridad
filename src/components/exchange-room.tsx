@@ -30,6 +30,11 @@ export default function ExchangeRoom() {
     if (!firestore || !userId) return;
     setIsLoading(true);
     const newRoomId = Math.random().toString(36).substring(2, 8).toUpperCase();
+    
+    // Optimistic UI update
+    setRole("creator");
+    setJoinedRoom(newRoomId);
+
     try {
       const roomRef = doc(firestore, "rooms", newRoomId);
       await setDoc(roomRef, {
@@ -42,10 +47,11 @@ export default function ExchangeRoom() {
         bob: { id: null, privateKey: null, publicKey: null, sharedKey: null },
         createdAt: new Date(),
       });
-      setRole("creator");
-      setJoinedRoom(newRoomId);
     } catch (error) {
       console.error("Error creating room:", error);
+      // Rollback on error
+      setJoinedRoom(null);
+      setRole(null);
       toast({
         variant: "destructive",
         title: "Error",
