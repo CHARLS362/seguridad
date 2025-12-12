@@ -48,22 +48,22 @@ const simulateManInTheMiddleAttackPrompt = ai.definePrompt({
   name: 'simulateManInTheMiddleAttackPrompt',
   input: {schema: SimulateManInTheMiddleAttackInputSchema},
   output: {schema: SimulateManInTheMiddleAttackOutputSchema},
-  prompt: `You are an expert in cybersecurity, specializing in Man-in-the-Middle (MitM) attacks on Diffie-Hellman key exchange.
+  prompt: `Eres un experto en ciberseguridad, especializado en ataques Man-in-the-Middle (MitM) en el intercambio de claves de Diffie-Hellman.
 
-Given the following Diffie-Hellman parameters and potential attacker knowledge, describe how a MitM attack can be executed and suggest mitigation strategies.
+Dados los siguientes parámetros de Diffie-Hellman y el conocimiento potencial del atacante, describe cómo se puede ejecutar un ataque MitM y sugiere estrategias de mitigación.
 
-Diffie-Hellman Parameters:
-Prime (p): {{{p}}}
-Generator (g): {{{g}}}
-Alice's Private Key (a): {{{alicePrivateKey}}}
-Bob's Private Key (b): {{{bobPrivateKey}}}
-Attacker Knowledge (if any): {{{attackerKnowledge}}}
+Parámetros de Diffie-Hellman:
+Primo (p): {{{p}}}
+Generador (g): {{{g}}}
+Clave Privada de Alice (a): {{{alicePrivateKey}}}
+Clave Privada de Bob (b): {{{bobPrivateKey}}}
+Conocimiento del Atacante (si lo hay): {{{attackerKnowledge}}}
 
-Provide a detailed attack description, including the steps an attacker would take to intercept and manipulate the key exchange. Also, suggest strategies to prevent such an attack, such as using digital signatures or authenticated key exchange protocols.
+Proporciona una descripción detallada del ataque, incluyendo los pasos que un atacante tomaría para interceptar y manipular el intercambio de claves. Además, sugiere estrategias para prevenir dicho ataque, como el uso de firmas digitales o protocolos de intercambio de claves autenticados.
 
-Attack Description:
+Descripción del Ataque:
 
-Mitigation Strategies:
+Estrategias de Mitigación:
 `,
 });
 

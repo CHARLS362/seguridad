@@ -21,10 +21,10 @@ import { Loader2, Lightbulb, TriangleAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const formSchema = z.object({
-  p: z.string().min(1, "Prime (p) is required."),
-  g: z.string().min(1, "Generator (g) is required."),
-  alicePrivateKey: z.string().min(1, "Alice's private key is required."),
-  bobPrivateKey: z.string().min(1, "Bob's private key is required."),
+  p: z.string().min(1, "El número primo (p) es obligatorio."),
+  g: z.string().min(1, "El generador (g) es obligatorio."),
+  alicePrivateKey: z.string().min(1, "La clave privada de Alice es obligatoria."),
+  bobPrivateKey: z.string().min(1, "La clave privada de Bob es obligatoria."),
   attackerKnowledge: z.string().optional(),
 });
 
@@ -42,7 +42,7 @@ export default function AttackSimulation() {
       g: "5",
       alicePrivateKey: "",
       bobPrivateKey: "",
-      attackerKnowledge: "Attacker can intercept and modify all messages between Alice and Bob.",
+      attackerKnowledge: "El atacante puede interceptar y modificar todos los mensajes entre Alice y Bob.",
     },
   });
 
@@ -54,7 +54,7 @@ export default function AttackSimulation() {
       const response = await simulateManInTheMiddleAttack(values);
       setResult(response);
     } catch (e) {
-      setError("An error occurred while communicating with the AI. Please try again.");
+      setError("Ocurrió un error al comunicarse con la IA. Por favor, inténtalo de nuevo.");
       console.error(e);
     } finally {
       setIsLoading(false);
@@ -64,9 +64,9 @@ export default function AttackSimulation() {
   return (
     <Card className="max-w-4xl mx-auto border-primary/20">
       <CardHeader>
-        <CardTitle>Man-in-the-Middle (MitM) Attack Simulation</CardTitle>
+        <CardTitle>Simulación de Ataque Man-in-the-Middle (MitM)</CardTitle>
         <CardDescription>
-          Use the AI to understand how an attacker could exploit the Diffie-Hellman exchange without authentication.
+          Usa la IA para entender cómo un atacante podría explotar el intercambio Diffie-Hellman sin autenticación.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -78,9 +78,9 @@ export default function AttackSimulation() {
                 name="p"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prime (p)</FormLabel>
+                    <FormLabel>Primo (p)</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 23" {...field} />
+                      <Input placeholder="ej., 23" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -91,9 +91,9 @@ export default function AttackSimulation() {
                 name="g"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Generator (g)</FormLabel>
+                    <FormLabel>Generador (g)</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 5" {...field} />
+                      <Input placeholder="ej., 5" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,9 +104,9 @@ export default function AttackSimulation() {
                 name="alicePrivateKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Alice's Private Key (a)</FormLabel>
+                    <FormLabel>Clave Privada de Alice (a)</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 6" {...field} />
+                      <Input placeholder="ej., 6" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +117,9 @@ export default function AttackSimulation() {
                 name="bobPrivateKey"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bob's Private Key (b)</FormLabel>
+                    <FormLabel>Clave Privada de Bob (b)</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 15" {...field} />
+                      <Input placeholder="ej., 15" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -131,12 +131,12 @@ export default function AttackSimulation() {
                 name="attackerKnowledge"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Attacker's Capabilities</FormLabel>
+                    <FormLabel>Capacidades del Atacante</FormLabel>
                     <FormControl>
-                      <Input placeholder="Describe what the attacker can do" {...field} />
+                      <Input placeholder="Describe qué puede hacer el atacante" {...field} />
                     </FormControl>
                      <FormDescription>
-                      Provide context for the AI, e.g., "Attacker knows p and g."
+                      Proporciona contexto para la IA, ej., "El atacante conoce p y g."
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -146,10 +146,10 @@ export default function AttackSimulation() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Simulating Attack...
+                  Simulando Ataque...
                 </>
               ) : (
-                "Run AI Simulation"
+                "Ejecutar Simulación con IA"
               )}
             </Button>
           </form>
@@ -158,7 +158,7 @@ export default function AttackSimulation() {
         {error && (
             <Alert variant="destructive" className="mt-6">
                 <TriangleAlert className="h-4 w-4" />
-                <AlertTitle>Simulation Failed</AlertTitle>
+                <AlertTitle>Falló la Simulación</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
             </Alert>
         )}
@@ -167,12 +167,12 @@ export default function AttackSimulation() {
           <div className="mt-8 space-y-6">
             <Alert variant="destructive">
               <TriangleAlert className="h-4 w-4" />
-              <AlertTitle>Attack Scenario</AlertTitle>
+              <AlertTitle>Escenario de Ataque</AlertTitle>
               <AlertDescription className="prose prose-sm prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: result.attackDescription.replace(/\n/g, '<br />') }}/>
             </Alert>
             <Alert>
               <Lightbulb className="h-4 w-4" />
-              <AlertTitle>Mitigation Strategies</AlertTitle>
+              <AlertTitle>Estrategias de Mitigación</AlertTitle>
               <AlertDescription className="prose prose-sm prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: result.mitigationStrategies.replace(/\n/g, '<br />') }} />
             </Alert>
           </div>

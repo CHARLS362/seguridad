@@ -40,7 +40,7 @@ const KeyPacket = ({ from, to, value }: { from: string, to: string, value: strin
             <KeyRound className="w-4 h-4" />
         </div>
         <div className="flex-grow">
-            <div className="text-xs text-muted-foreground">{from} to {to}</div>
+            <div className="text-xs text-muted-foreground">{from} a {to}</div>
             <p className="font-mono text-xs break-all">{value}</p>
         </div>
         <Send className="w-5 h-5 text-primary" />
@@ -53,18 +53,18 @@ export default function TimelineAnimation({ state, onExchange, canExchange, keys
     return (
         <Card className="border-primary/20">
             <CardHeader>
-                <CardTitle>2. Exchange Timeline</CardTitle>
-                <CardDescription>Follow the key exchange process step by step.</CardDescription>
+                <CardTitle>2. Línea de Tiempo del Intercambio</CardTitle>
+                <CardDescription>Sigue el proceso de intercambio de claves paso a paso.</CardDescription>
             </CardHeader>
             <CardContent>
-                {step === 0 && <p className="text-muted-foreground text-center py-8">Select DH parameters to begin.</p>}
+                {step === 0 && <p className="text-muted-foreground text-center py-8">Selecciona los parámetros DH para comenzar.</p>}
                 
                 <div className="relative">
                     <TimelineItem
                         isVisible={step >= 1}
                         icon={<Users className="w-6 h-6" />}
-                        title="Agree on Public Parameters"
-                        description="Alice and Bob publicly agree on a large prime (p) and a generator (g)."
+                        title="Acordar Parámetros Públicos"
+                        description="Alice y Bob acuerdan públicamente un primo grande (p) y un generador (g)."
                     >
                          <div className="mt-2 space-y-2 font-mono text-xs">
                            <p>p = {params?.p.toString() || '...'}</p>
@@ -75,22 +75,22 @@ export default function TimelineAnimation({ state, onExchange, canExchange, keys
                      <TimelineItem
                         isVisible={step >= 2}
                         icon={<Lock className="w-6 h-6" />}
-                        title="Generate Private Keys"
-                        description="Each party secretly generates their own private number."
+                        title="Generar Claves Privadas"
+                        description="Cada parte genera en secreto su propio número privado."
                     >
                         <div className="mt-2 text-xs">
-                            <p>Alice's private key (a) and Bob's private key (b) are kept secret.</p>
+                            <p>La clave privada de Alice (a) y la clave privada de Bob (b) se mantienen en secreto.</p>
                         </div>
                     </TimelineItem>
 
                     <TimelineItem
                         isVisible={step >= 2 && canExchange}
                         icon={<Send className="w-6 h-6" />}
-                        title="Exchange Public Keys"
-                        description="Alice and Bob calculate and exchange their public keys. Click to proceed."
+                        title="Intercambiar Claves Públicas"
+                        description="Alice y Bob calculan e intercambian sus claves públicas. Haz clic para proceder."
                     >
                         <Button onClick={onExchange} disabled={step >= 3} className="mt-4">
-                            Exchange Keys <ArrowRight className="ml-2 w-4 h-4" />
+                            Intercambiar Claves <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
                         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             {step >= 3 && alice.publicKey && (
@@ -105,19 +105,19 @@ export default function TimelineAnimation({ state, onExchange, canExchange, keys
                     <FinalTimelineItem
                         isVisible={step >= 4}
                         icon={keysMatch ? <CheckCircle className="w-6 h-6 text-green-500" /> : <XCircle className="w-6 h-6 text-red-500" />}
-                        title="Calculate Shared Secret"
-                        description="Each party uses the other's public key and their own private key to compute the same shared secret."
+                        title="Calcular Secreto Compartido"
+                        description="Cada parte usa la clave pública del otro y su propia clave privada para calcular el mismo secreto compartido."
                     >
                         {keysMatch ? (
                              <div className="mt-2 p-4 rounded-lg bg-green-500/10 text-green-400 border border-green-500/20">
-                                <h4 className="font-bold">Success! Shared keys match.</h4>
-                                <p className="text-sm mt-1">Both Alice and Bob have independently computed the same secret key without ever transmitting it directly.</p>
-                                <p className="font-mono text-xs mt-2 break-all">Shared Key = {alice.sharedKey?.toString()}</p>
+                                <h4 className="font-bold">¡Éxito! Las claves compartidas coinciden.</h4>
+                                <p className="text-sm mt-1">Tanto Alice como Bob han calculado independientemente la misma clave secreta sin transmitirla directamente.</p>
+                                <p className="font-mono text-xs mt-2 break-all">Clave Compartida = {alice.sharedKey?.toString()}</p>
                             </div>
                         ) : (
                              <div className="mt-2 p-4 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20">
-                                <h4 className="font-bold">Keys Do Not Match!</h4>
-                                <p className="text-sm mt-1">There was an error in the calculation.</p>
+                                <h4 className="font-bold">¡Las claves no coinciden!</h4>
+                                <p className="text-sm mt-1">Hubo un error en el cálculo.</p>
                             </div>
                         )}
                     </FinalTimelineItem>

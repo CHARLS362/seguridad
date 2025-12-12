@@ -92,8 +92,8 @@ export default function KeyExchangeSimulator() {
     const log = JSON.stringify(state, replacer, 2);
     navigator.clipboard.writeText(log);
     toast({
-      title: "Log Copied",
-      description: "The simulation log has been copied to your clipboard.",
+      title: "Registro Copiado",
+      description: "El registro de la simulación ha sido copiado a tu portapapeles.",
     });
   }
 
@@ -106,13 +106,13 @@ export default function KeyExchangeSimulator() {
     <div className="space-y-8">
       <Card className="border-primary/20">
         <CardHeader>
-          <CardTitle>1. Configuration</CardTitle>
-          <CardDescription>Select the public parameters (p and g) to begin the simulation.</CardDescription>
+          <CardTitle>1. Configuración</CardTitle>
+          <CardDescription>Selecciona los parámetros públicos (p y g) para comenzar la simulación.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row items-center gap-4">
             <Select onValueChange={handleSetParams} value={state.params?.name}>
                 <SelectTrigger className="w-full sm:w-[280px]">
-                    <SelectValue placeholder="Select DH Parameters (p, g)" />
+                    <SelectValue placeholder="Seleccionar Parámetros DH (p, g)" />
                 </SelectTrigger>
                 <SelectContent>
                     {DH_PARAMS.map(p => (
@@ -122,10 +122,10 @@ export default function KeyExchangeSimulator() {
             </Select>
             <div className="flex-grow" />
              <Button onClick={handleCopyLog} variant="outline" disabled={state.step === 0}>
-                <Copy className="mr-2 h-4 w-4" /> Copy Log
+                <Copy className="mr-2 h-4 w-4" /> Copiar Registro
             </Button>
             <Button onClick={handleReset} variant="destructive">
-                <RefreshCw className="mr-2 h-4 w-4" /> Reset
+                <RefreshCw className="mr-2 h-4 w-4" /> Reiniciar
             </Button>
         </CardContent>
       </Card>

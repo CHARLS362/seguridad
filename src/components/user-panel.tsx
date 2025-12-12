@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { User, KeyRound, Lock, ShieldCheck, SquareArrowOutUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { power } from "@/lib/dh-constants";
 
 const ValueDisplay = ({ label, value, icon, isPrivate, isShared, step, requiredStep }: { label: string, value: string | null, icon: React.ReactNode, isPrivate?: boolean, isShared?: boolean, step: number, requiredStep: number }) => (
     <div className={cn("space-y-1 transition-opacity duration-500", step >= requiredStep ? "opacity-100" : "opacity-30")}>
@@ -45,18 +46,18 @@ export default function UserPanel({ name, params, userState, onGenerate, canGene
                     {name}
                 </CardTitle>
                 <CardDescription>
-                    {name}'s perspective in the key exchange.
+                    Perspectiva de {name} en el intercambio de claves.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <Button onClick={onGenerate} disabled={!canGenerate || !!privateKey} className="w-full">
                     <Lock className="mr-2 h-4 w-4" />
-                    {privateKey ? "Private Key Generated" : "Generate Private Key"}
+                    {privateKey ? "Clave Privada Generada" : "Generar Clave Privada"}
                 </Button>
 
                 <div className="space-y-4 pt-4">
                     <ValueDisplay
-                        label="Private Key"
+                        label="Clave Privada"
                         value={privateKey?.toString() ?? null}
                         icon={<Lock className="w-4 h-4 mr-2" />}
                         isPrivate
@@ -64,21 +65,21 @@ export default function UserPanel({ name, params, userState, onGenerate, canGene
                         requiredStep={2}
                     />
                     <ValueDisplay
-                        label="Public Key (Calculated)"
-                        value={canCalculatePublic && params ? (power(params.g, privateKey!, params.p)).toString() : null}
+                        label="Clave Pública (Calculada)"
+                        value={canCalculatePublic && params && privateKey ? (power(params.g, privateKey, params.p)).toString() : null}
                         icon={<KeyRound className="w-4 h-4 mr-2" />}
                         step={step}
                         requiredStep={3}
                     />
                      <ValueDisplay
-                        label={`Received Public Key (from ${name === 'Alice' ? 'Bob' : 'Alice'})`}
+                        label={`Clave Pública Recibida (de ${name === 'Alice' ? 'Bob' : 'Alice'})`}
                         value={receivedPublicKey?.toString() ?? null}
                         icon={<SquareArrowOutUpRight className="w-4 h-4 mr-2" />}
                         step={step}
                         requiredStep={3}
                     />
                     <ValueDisplay
-                        label="Shared Secret (Computed)"
+                        label="Secreto Compartido (Calculado)"
                         value={sharedKey?.toString() ?? null}
                         icon={<ShieldCheck className="w-4 h-4 mr-2" />}
                         isShared

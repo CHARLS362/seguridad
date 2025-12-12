@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Key Exchange Simulator',
-  description: 'An interactive simulator for the Diffie-Hellman key exchange algorithm.',
+  title: 'Simulador de Intercambio de Claves',
+  description: 'Un simulador interactivo para el algoritmo de intercambio de claves de Diffie-Hellman.',
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="es" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
